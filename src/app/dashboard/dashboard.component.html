@@ -1,0 +1,122 @@
+<div class="container mt-5">
+  <h2>Dashboard</h2>
+
+  <!-- Admin Dashboard -->
+  <div *ngIf="account?.role === 'Admin'">
+    <h4>Evaluation Stats</h4>
+    <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center me-4">
+        <i class="bi bi-check-circle-fill text-success me-2" style="font-size: 2rem;"></i>
+        <p><strong>Total Evaluations Completed: </strong>{{ evaluationsCompleted }}</p>
+      </div>
+      <div class="d-flex align-items-center">
+        <i class="bi bi-hourglass-split text-warning me-2" style="font-size: 2rem;"></i>
+        <p><strong>Total Evaluations Pending: </strong>{{ evaluationsPending }}</p>
+      </div>
+    </div>
+
+    <!-- Display Total Students -->
+    <div class="d-flex align-items-center">
+      <i class="bi bi-person-bounding-box text-primary me-2" style="font-size: 2rem;"></i>
+      <p><strong>Total Students: </strong>{{ getTotalStudents() }}</p>
+    </div>
+
+    <!-- Display Total Students Pending Evaluation -->
+    <div class="d-flex align-items-center">
+      <i class="bi bi-person-x text-danger me-2" style="font-size: 2rem;"></i>
+      <p><strong>Total Students Pending Evaluation: </strong>{{ totalStudentsPendingEvaluation }}</p>
+    </div>
+
+    <!-- Evaluation Results (Admin can see average score) -->
+    <div class="mt-4">
+      <h5>Evaluation Results</h5>
+      <div class="d-flex align-items-center">
+        <i class="bi bi-bar-chart-line-fill text-primary me-2" style="font-size: 2rem;"></i>
+        <p><strong>Average Score: </strong>{{ evaluationResults.averageScore }}%</p>
+      </div>
+    </div>
+
+    <!-- Table for Students with Evaluation Status, Submission Date, Degree Program -->
+    <h4 class="mt-4">Students' Evaluation Status</h4>
+    <table class="table table-striped mt-4">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Gender</th>
+          <th>Degree Program</th> <!-- Display Degree Program -->
+          <th>Evaluation Status</th>
+          <th>Submission Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of students">
+          <td>{{ student.name }}</td>
+          <td>{{ student.email }}</td>
+          <td>{{ student.gender }}</td>
+          <td>{{ student.degreeProgram }}</td> <!-- Display Degree Program -->
+          <td>
+            <span *ngIf="student.evaluationCompleted" class="badge bg-success d-flex align-items-center">
+              <i class="bi bi-check-circle-fill me-2" style="font-size: 1.2rem;"></i> Completed
+            </span>
+            <span *ngIf="!student.evaluationCompleted" class="badge bg-warning d-flex align-items-center">
+              <i class="bi bi-hourglass-split me-2" style="font-size: 1.2rem;"></i> Pending
+            </span>
+          </td>
+          <td>
+            <span *ngIf="student.submissionDate">{{ student.submissionDate | date:'short' }}</span>
+            <span *ngIf="!student.submissionDate">N/A</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Teachers' Evaluation Feedback -->
+    <h4 class="mt-4">Teachers' Evaluation Feedback</h4>
+    <table class="table table-striped mt-4">
+      <thead>
+        <tr>
+          <th>Teacher</th>
+          <th>Gender</th>
+          <th>Subject</th> <!-- Display Teacher's Subject -->
+          <th>Evaluations Sent</th>
+          <th>Evaluations Completed</th>
+          <th>Average Rating</th>
+          <th>Feedback</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let teacher of teachers">
+          <td>{{ teacher.name }}</td>
+          <td>{{ teacher.gender }}</td>
+          <td>{{ teacher.subject }}</td> <!-- Display Teacher's Subject -->
+          <td>{{ teacher.evaluationsSent }}</td>
+          <td>{{ teacher.evaluationsCompleted }}</td>
+          <td>{{ getTeacherAverageRating(teacher) }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let feedback of teacher.feedbacks">
+                <strong>{{ feedback.studentName }}:</strong> {{ feedback.comment }} (Rating: {{ feedback.rating }})
+                <br> <span class="text-muted">{{ feedback.submissionDate | date:'short' }}</span>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- User Dashboard (Student's Individual Status) -->
+  <div *ngIf="account?.role === 'User'">
+    <h4>Your Evaluation Status</h4>
+    <div class="d-flex align-items-center">
+      <i class="bi bi-check-circle-fill text-success me-2" style="font-size: 2rem;"></i>
+      <p><strong>Evaluation Completed: </strong>{{ evaluationsCompleted ? 'Yes' : 'No' }}</p>
+    </div>
+    <div class="d-flex align-items-center">
+      <i class="bi bi-hourglass-split text-warning me-2" style="font-size: 2rem;"></i>
+      <p><strong>Evaluation Pending: </strong>{{ evaluationsPending ? 'Yes' : 'No' }}</p>
+    </div>
+    <p><strong>Submission Date: </strong>{{ getSubmissionDate() }}</p>
+  </div>
+</div>

@@ -1,0 +1,150 @@
+/* You can add global styles to this file, and also import other style files */
+.app-container {
+    min-height: 320px;
+}
+
+.admin-nav {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: #e8e9ea;
+    border-bottom: 1px solid #ccc;
+}
+
+.btn-delete-account {
+    width: 40px;
+    text-align: center;
+    box-sizing: content-box;
+}
+
+
+
+
+//* Sidebar transition effect */
+.sidebar {
+    transition: transform 0.3s ease;
+}
+
+.sidebar.collapse {
+    transform: translateX(-100%); /* Sidebar hidden when collapsed */
+}
+
+#sidebar-container {
+    display: flex;
+    width: 100%;
+}
+
+.main-content {
+    flex-grow: 1;
+    transition: margin-left 0.3s ease;
+}
+
+/* For smaller screens */
+@media (max-width: 768px) {
+    .sidebar {
+        transform: translateX(-100%); /* Start with hidden sidebar */
+    }
+
+    .sidebar.collapse {
+        transform: translateX(0); /* Show sidebar when expanded */
+    }
+}
+
+
+
+
+
+
+
+/* Change the color of active navbar links */
+.navbar-nav .nav-item .nav-link.active {
+    background-color: #007bff; /* Blue background for active link */
+    color: white; /* White text for active link */
+}
+
+/* Hover effect for navbar links */
+.navbar-nav .nav-item .nav-link:hover {
+    background-color: #0056b3; /* Darker blue background on hover */
+    color: white; /* White text on hover */
+}
+
+/* Default link color */
+.navbar-nav .nav-item .nav-link {
+    transition: background-color 0.3s, color 0.3s;
+    color: #ccc; /* Default text color */
+}
+
+/* Focus effect for navbar links (optional) */
+.navbar-nav .nav-item .nav-link:focus {
+    background-color: #0056b3; /* Darker blue on focus */
+    color: white; /* White text on focus */
+}
+
+/* Hover effect for select dropdown */
+select.form-select:hover {
+    background-color: #f0f8ff; /* Light blue background when hovered */
+    color: #333; /* Dark text color */
+}
+
+/* Select dropdown focus effect */
+select.form-select:focus {
+    background-color: #e0f7fa; /* Lighter blue when focused */
+    border-color: #007bff; /* Blue border */
+    color: #000; /* Dark text color */
+}
+
+/* Change color for the selected option in the select dropdown */
+select option:checked {
+    background-color: #007bff; /* Blue background for selected option */
+    color: white; /* White text for selected option */
+}
+
+
+
+
+
+
+/* Styling for the table */
+.table {
+  width: 100%;
+  margin: 20px 0;
+  border: 1px solid #ddd;
+}
+
+.table th, .table td {
+  padding: 8px;
+  text-align: left;
+}
+
+.table-striped tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+/* Styling for badges */
+.badge {
+  padding: 5px 10px;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+.bg-success {
+  background-color: #28a745;
+}
+
+.bg-warning {
+  background-color: #ffc107;
+}
+
+h2, h4 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+h5 {
+  font-size: 18px;
+  font-weight: normal;
+  margin-top: 15px;
+}
+
+ul {
+  padding-left: 20px;
+}
