@@ -32,12 +32,19 @@
                         <i class="bi bi-columns me-2"></i> Dashboard
                     </a>
                 </li>
-                <!-- Create Evaluation Link -->
-                <li class="nav-item">
-                    <a routerLink="/create-evaluation" routerLinkActive="active" class="nav-item nav-link text-white" (click)="collapseNavbar()">
-                        <i class="bi bi-pencil-square me-2"></i> Create Evaluation
+                <!-- Only show Create Evaluation link for Admins -->
+        <li *ngIf="account?.role === Role.Admin" class="nav-item">
+          <a routerLink="/create-evaluation" routerLinkActive="active" class="nav-item nav-link text-white" (click)="collapseNavbar()">
+            <i class="bi bi-pencil-square me-2"></i> Create Evaluation
+          </a>
+        </li>
+
+                <li *ngIf="account?.role === Role.Admin" class="nav-item">
+                    <a routerLink="/teachers" routerLinkActive="active" class="nav-item nav-link text-white" (click)="collapseNavbar()">
+                        <i class="bi bi-person-lines-fill me-2"></i> Teachers
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <button (click)="logout()" class="btn btn-link nav-item nav-link text-white">
                         <i class="bi bi-box-arrow-right me-2"></i> Logout
