@@ -1,0 +1,89 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Edit Teacher</h2>
+
+  <form (ngSubmit)="updateTeacher()" #teacherForm="ngForm">
+
+    <!-- Name Input -->
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input 
+        type="text" 
+        [(ngModel)]="teacher.name" 
+        name="name" 
+        class="form-control" 
+        id="name" 
+        placeholder="Enter teacher's name" 
+        required
+      />
+    </div>
+
+    <!-- Subject Dropdown -->
+    <div class="mb-3">
+      <label for="subject" class="form-label">Subject</label>
+      <select 
+        [(ngModel)]="teacher.subject" 
+        name="subject" 
+        id="subject" 
+        class="form-select" 
+        required
+      >
+        <option value="" disabled>Select Subject</option>
+        <option value="BSIT">BSIT</option>
+        <option value="BSHM">BSHM</option>
+        <option value="BSED">BSED</option>
+      </select>
+    </div>
+
+    <!-- Gender Dropdown -->
+    <div class="mb-3">
+      <label for="gender" class="form-label">Gender</label>
+      <select 
+        [(ngModel)]="teacher.gender" 
+        name="gender" 
+        id="gender" 
+        class="form-select" 
+        required
+      >
+        <option value="" disabled>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <!-- Display input field if 'Other' is selected -->
+      <div *ngIf="teacher.gender === 'Other'" class="mt-2">
+        <label for="customGender" class="form-label">Custom Gender</label>
+        <input 
+          type="text" 
+          [(ngModel)]="teacher.customGender" 
+          name="customGender" 
+          class="form-control" 
+          id="customGender" 
+          placeholder="Enter custom gender" 
+        />
+      </div>
+    </div>
+
+    <!-- Active Status Dropdown -->
+    <div class="mb-3">
+      <label for="activeStatus" class="form-label">Active Status</label>
+      <select 
+        [(ngModel)]="teacher.activeStatus" 
+        name="activeStatus" 
+        id="activeStatus" 
+        class="form-select"
+      >
+        <option value="" disabled>Select Active Status</option>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+        <option value="On Leave">On Leave</option>
+      </select>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary" [disabled]="teacherForm.invalid">Update Teacher</button>
+  </form>
+</div>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">

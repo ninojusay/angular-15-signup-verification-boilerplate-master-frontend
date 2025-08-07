@@ -15,7 +15,9 @@ import { AlertComponent } from './_components';
 import { HomeComponent } from './home';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TeacherListComponent } from './teacher-list/teacher-list.component';  // Import the Teacher List component
-import { TeacherService } from './teacher.service'; // Import the Teacher service
+import { TeacherService } from './teacher.service';
+import { AddTeacherComponent } from './add-teacher/add-teacher.component';
+import { EditTeacherComponent } from './edit-teacher/edit-teacher.component'; // Import the Teacher service
 
 @NgModule({
   imports: [
@@ -30,7 +32,9 @@ import { TeacherService } from './teacher.service'; // Import the Teacher servic
     AlertComponent,
     HomeComponent,
     DashboardComponent,
-    TeacherListComponent,  // Declare the Teacher List component
+    TeacherListComponent,
+    AddTeacherComponent,
+    EditTeacherComponent,  // Declare the Teacher List component
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },

@@ -6,6 +6,9 @@ import { AuthGuard } from './_helpers';
 import { Role } from './_models';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TeacherListComponent } from './teacher-list/teacher-list.component';
+import { AddTeacherComponent } from './add-teacher/add-teacher.component';
+import { EditTeacherComponent } from './edit-teacher/edit-teacher.component';
+
 // Lazy-loaded modules
 const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
 const adminModule = () => import('./admin/admin.module').then(x => x.AdminModule);
@@ -20,11 +23,16 @@ const routes: Routes = [
 
     // Dashboard route (with role-based access control)
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin, Role.User] } },
-      { path: 'create-evaluation', loadChildren: createEvaluationModule, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
-     { path: 'teachers', component: TeacherListComponent },
-   
-   
-      // Catch-all route, redirect to home
+
+    // Create Evaluation route (only accessible by Admins)
+    { path: 'create-evaluation', loadChildren: createEvaluationModule, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
+
+    // Teacher Routes
+    { path: 'teachers', component: TeacherListComponent, canActivate: [AuthGuard] },  // List teachers
+    { path: 'add-teacher', component: AddTeacherComponent, canActivate: [AuthGuard] },  // Add new teacher
+    { path: 'edit-teacher/:id', component: EditTeacherComponent, canActivate: [AuthGuard] },  // Edit teacher by ID
+
+    // Catch-all route, redirect to home if route is not found
     { path: '**', redirectTo: '' }
 ];
 

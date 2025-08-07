@@ -1,0 +1,90 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Create Teacher</h2>
+
+  <!-- Display error message if any -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Display success message if teacher is added successfully -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <form (ngSubmit)="addTeacher()" #teacherForm="ngForm">
+    <!-- Name Input -->
+    <div class="mb-3">
+      <div class="input-group">
+        <span class="input-group-text"><i class="fa fa-user"></i></span>
+        <input 
+          type="text" 
+          [(ngModel)]="teacher.name" 
+          name="name" 
+          placeholder="Name" 
+          required
+          class="form-control"
+          #name="ngModel"
+        />
+      </div>
+      <div *ngIf="name.invalid && name.touched" class="text-danger">Name is required.</div>
+    </div>
+
+    <!-- Subject Dropdown -->
+    <div class="mb-3">
+      <div class="input-group">
+        <span class="input-group-text"><i class="fa fa-book"></i></span>
+        <select 
+          [(ngModel)]="teacher.subject" 
+          name="subject" 
+          required 
+          class="form-control"
+          #subject="ngModel"
+        >
+          <option value="" disabled selected>Select Subject</option>
+          <option value="BSIT">BSIT</option>
+          <option value="BSHM">BSHM</option>
+          <option value="BSED">BSED</option>
+        </select>
+      </div>
+      <div *ngIf="subject.invalid && subject.touched" class="text-danger">Subject is required.</div>
+    </div>
+
+    <!-- Gender Dropdown -->
+    <div class="mb-3">
+      <div class="input-group">
+        <span class="input-group-text"><i class="fa fa-venus-mars"></i></span>
+        <select 
+          [(ngModel)]="teacher.gender" 
+          name="gender" 
+          required 
+          class="form-control"
+          #gender="ngModel"
+        >
+          <option value="" disabled selected>Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div *ngIf="gender.invalid && gender.touched" class="text-danger">Gender is required.</div>
+    </div>
+
+    <!-- Active Status Input (Readonly) -->
+    <div class="mb-3">
+      <div class="input-group">
+        <span class="input-group-text"><i class="fa fa-check-circle"></i></span>
+        <input 
+          type="text" 
+          [(ngModel)]="teacher.activeStatus" 
+          name="activeStatus" 
+          placeholder="Active Status"
+          class="form-control"
+          readonly
+        />
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-success" [disabled]="teacherForm.invalid">Add Teacher</button>
+  </form>
+</div>
