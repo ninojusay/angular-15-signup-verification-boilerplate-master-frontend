@@ -14,6 +14,11 @@ export class TeacherListComponent implements OnInit {
   isLoading: boolean = false;  // Track loading state
   errorMessage: string = '';   // To display error messages if any
 
+  // Pagination variables
+  pageSize: number = 5;       // Number of teachers per page
+  currentPage: number = 1;    // Current page number
+  totalPages: number = 1;     // Total number of pages
+
   constructor(private teacherService: TeacherService, private router: Router) {}
 
   ngOnInit(): void {
@@ -27,6 +32,7 @@ export class TeacherListComponent implements OnInit {
       (data) => {
         this.teachers = data;
         this.filteredTeachers = data; // Initially, display all teachers
+        this.totalPages = Math.ceil(this.filteredTeachers.length / this.pageSize); // Calculate total pages
         this.isLoading = false; // Set loading state to false after fetching data
       },
       (error) => {
@@ -44,9 +50,24 @@ export class TeacherListComponent implements OnInit {
       teacher.subject.toLowerCase().includes(this.searchText.toLowerCase()) ||
       teacher.gender.toLowerCase().includes(this.searchText.toLowerCase())
     );
+    this.totalPages = Math.ceil(this.filteredTeachers.length / this.pageSize); // Recalculate total pages after filtering
+    this.currentPage = 1;  // Reset to first page after search
   }
 
-  // Navigate to the Add Teacher page
+  // Handle page change
+  changePage(page: number): void {
+    if (page < 1 || page > this.totalPages) return; // Ensure page number is valid
+    this.currentPage = page;
+  }
+
+  // Get the teachers for the current page
+  get paginatedTeachers() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = this.currentPage * this.pageSize;
+    return this.filteredTeachers.slice(startIndex, endIndex);
+  }
+
+  // Navigate to Add Teacher page
   navigateToAddTeacher(): void {
     this.router.navigate(['/add-teacher']);  // Navigate to Add Teacher page
   }
@@ -66,7 +87,7 @@ export class TeacherListComponent implements OnInit {
     }
   }
 
-  // Navigate to the Edit Teacher page
+  // Navigate to Edit Teacher page
   editTeacher(id: number): void {
     this.router.navigate([`/edit-teacher/${id}`]);  // Navigate to Edit Teacher page
   }

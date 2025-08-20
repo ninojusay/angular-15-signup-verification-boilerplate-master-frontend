@@ -23,6 +23,10 @@
   <!-- Add Teacher Button -->
   <button class="btn btn-primary mb-3" (click)="navigateToAddTeacher()">Add Teacher</button>
 
+  <!-- Display Teacher Count -->
+  <p>Total Teachers: {{ teachers.length }}</p> <!-- Total count of all teachers -->
+  <p>Filtered Teachers: {{ filteredTeachers.length }}</p> <!-- Count of filtered teachers based on search -->
+
   <!-- Teacher List Table -->
   <table class="table table-striped">
     <thead>
@@ -36,7 +40,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let teacher of filteredTeachers">
+      <tr *ngFor="let teacher of paginatedTeachers">
         <td>{{ teacher.id }}</td>
         <td>{{ teacher.name }}</td>
         <td>{{ teacher.subject }}</td>
@@ -53,8 +57,24 @@
       </tr>
     </tbody>
   </table>
+
+  <!-- Pagination Controls -->
+  <nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+        <a class="page-link" (click)="changePage(1)" tabindex="-1">First</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === 1}">
+        <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+        <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
+      </li>
+      <li class="page-item" [ngClass]="{'disabled': currentPage === totalPages}">
+        <a class="page-link" (click)="changePage(totalPages)">Last</a>
+      </li>
+    </ul>
+  </nav>
 </div>
-
-
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
