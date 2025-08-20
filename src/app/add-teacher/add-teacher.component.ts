@@ -31,7 +31,18 @@ export class AddTeacherComponent {
         this.errorMessage = 'Error adding teacher. Please try again.';
         this.successMessage = '';  // Clear success message if there's an error
         console.error('Error:', error);
+        
       }
+
+      
     );
   }
+
+
+  onCancel(): void {
+    // Navigate back to the teacher list or dashboard
+    this.router.navigate(['/teachers']); 
+  }
 }
+
+

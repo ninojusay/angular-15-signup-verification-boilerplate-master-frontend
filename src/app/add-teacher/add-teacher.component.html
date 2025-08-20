@@ -84,7 +84,17 @@
       </div>
     </div>
 
-    <!-- Submit Button -->
-    <button type="submit" class="btn btn-success" [disabled]="teacherForm.invalid">Add Teacher</button>
-  </form>
+
+<!-- Buttons container -->
+<div class="d-flex justify-content-end mt-3">
+  <button type="submit" class="btn btn-success me-2" [disabled]="teacherForm.invalid">
+    Add Teacher
+  </button>
+  <button type="button" class="btn btn-danger" (click)="onCancel()">
+    Cancel
+  </button>
 </div>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">

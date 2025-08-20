@@ -2,7 +2,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';  // Import ReactiveFormsModule
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';  // Import FormsModule
+import { FormsModule } from '@angular/forms';  // Import FormsModule for ngModel
+
 
 // Used to create fake backend (commented out for now)
 import { fakeBackendProvider } from './_helpers';
@@ -17,14 +18,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TeacherListComponent } from './teacher-list/teacher-list.component';  // Import the Teacher List component
 import { TeacherService } from './teacher.service';
 import { AddTeacherComponent } from './add-teacher/add-teacher.component';
-import { EditTeacherComponent } from './edit-teacher/edit-teacher.component'; // Import the Teacher service
+import { EditTeacherComponent } from './edit-teacher/edit-teacher.component';
+import { FilterPipe } from './filter.pipe'; // Import the Teacher service
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,  // Enables reactive forms
     HttpClientModule,  // Enables HTTP requests
-    FormsModule,  // Enables two-way data binding with ngModel
+    FormsModule,  // <-- Added FormsModule to enable ngModel
     AppRoutingModule  // Routing for the application
   ],
   declarations: [
@@ -34,7 +36,8 @@ import { EditTeacherComponent } from './edit-teacher/edit-teacher.component'; //
     DashboardComponent,
     TeacherListComponent,
     AddTeacherComponent,
-    EditTeacherComponent,  // Declare the Teacher List component
+    EditTeacherComponent,
+    FilterPipe,  // Declare the Teacher List component
   ],
   providers: [
     { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AccountService] },
